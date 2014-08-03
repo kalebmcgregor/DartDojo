@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Solitaire"
+            android:label="@string/title_activity_solitaire"
+            android:parentActivityName="com.example.kaleb_000.dartdojo.Main" >
+    </activity>
     </application>
 
 </manifest>

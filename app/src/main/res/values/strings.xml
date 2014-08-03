@@ -4,5 +4,7 @@
     <string name="app_name">DartDojo</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="send_to_solitaire">Solitaire</string>
+    <string name="title_activity_solitaire">Solitaire</string>
 
 </resources>
