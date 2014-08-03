@@ -37,4 +37,9 @@ public class Solitaire extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    //Send Current Activity to Solitaire
+    public void dartbuttonpress(int dartnumber) {
+        
+    }
 }

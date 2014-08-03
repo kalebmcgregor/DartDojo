@@ -8,6 +8,7 @@ import android.view.View;
 import android.content.Intent;
 import android.view.Window;
 import android.view.WindowManager;
+import com.example.kaleb_000.dartdojo.MyGlobals;
 
 
 public class Main extends Activity {
