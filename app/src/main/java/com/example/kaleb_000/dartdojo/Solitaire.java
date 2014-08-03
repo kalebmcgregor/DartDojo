@@ -45,20 +45,23 @@ public class Solitaire extends Activity {
 
     //function used for deciding which dart was thrown in Solitaire class
     public void dart_pressed(View view){
-        int i = view.getId();
-        switch(i){
-            case R.id.button:
-                TextView textView = (TextView) findViewById(R.id.Score);
-                textView.setTextSize(40);
-                textView.setText("Dart 1");
-                setContentView(textView);
 
+        //Set int button_id to the id of the button that was pressed
+        int button_id = view.getId();
+
+        //Set new TextView textView with the same properties as the current textView
+        TextView textView = (TextView) findViewById(R.id.Score);
+
+        //Select the right button and do actions depending on which dart was selected
+        switch(button_id){
+            case R.id.button:
+                textView.setText("Dart 1");
                 break;
             case R.id.button2:
-
+                textView.setText("Dart 2");
                 break;
             case R.id.button3:
-
+                textView.setText("Dart 3");
                 break;
         }
     }
