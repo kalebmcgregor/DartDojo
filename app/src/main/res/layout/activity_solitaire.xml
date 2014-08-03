@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.kaleb_000.dartdojo.Solitaire"
-    android:id="@+id/">
+    android:id="@+id/SolitaireLayout">
 
     <Button
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Ain't nobody been pressed yet"
-        android:id="@+id/textView"
+        android:id="@+id/Score"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="43dp" />

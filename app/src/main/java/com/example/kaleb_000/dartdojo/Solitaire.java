@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
+import Android.R;
 
 import com.example.kaleb_000.dartdojo.R;
 
@@ -45,6 +47,9 @@ public class Solitaire extends Activity {
         int i = view.getId();
         switch(i){
             case R.id.button:
+                Textview textView = (TextView) findViewById(R.id.Score);
+                textView.setTextSize(40);
+                textView.
 
                 break;
             case R.id.button2:
