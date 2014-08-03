@@ -38,4 +38,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp"
         android:layout_gravity="right|center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Ain't nobody been pressed yet"
+        android:id="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="43dp" />
 </RelativeLayout>

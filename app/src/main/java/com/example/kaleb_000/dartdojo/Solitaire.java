@@ -1,9 +1,11 @@
 package com.example.kaleb_000.dartdojo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -38,8 +40,21 @@ public class Solitaire extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Send Current Activity to Solitaire
-    public void dartbuttonpress(int dartnumber) {
-        
+    //function used for deciding which dart was thrown in Solitaire class
+    public void dartpressed(View view){
+        int i = view.getId();
+        switch(i){
+            case R.id.button:
+
+                break;
+            case R.id.button2:
+
+                break;
+            case R.id.button3:
+
+                break;
+        }
     }
+
+
 }
