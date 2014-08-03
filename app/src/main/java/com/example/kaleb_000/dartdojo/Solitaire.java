@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import Android.R;
+import android.R.*;
 
-import com.example.kaleb_000.dartdojo.R;
+import com.example.kaleb_000.dartdojo.MyGlobals;
 
 public class Solitaire extends Activity {
 
@@ -19,6 +19,7 @@ public class Solitaire extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solitaire);
+        TextView textView = (TextView) findViewById(R.id.Score);
 
     }
 
@@ -43,13 +44,14 @@ public class Solitaire extends Activity {
     }
 
     //function used for deciding which dart was thrown in Solitaire class
-    public void dartpressed(View view){
+    public void dart_pressed(View view){
         int i = view.getId();
         switch(i){
             case R.id.button:
-                Textview textView = (TextView) findViewById(R.id.Score);
+                TextView textView = (TextView) findViewById(R.id.Score);
                 textView.setTextSize(40);
-                textView.
+                textView.setText("Dart 1");
+                setContentView(textView);
 
                 break;
             case R.id.button2:
