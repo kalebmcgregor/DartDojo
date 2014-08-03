@@ -15,6 +15,8 @@ import com.example.kaleb_000.dartdojo.MyGlobals;
 
 public class Solitaire extends Activity {
 
+
+    MyGlobals update_score = new MyGlobals();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,13 +57,13 @@ public class Solitaire extends Activity {
         //Select the right button and do actions depending on which dart was selected
         switch(button_id){
             case R.id.button:
-                textView.setText("Dart 1");
+                textView.setText(update_score.dartthrow(1));
                 break;
             case R.id.button2:
-                textView.setText("Dart 2");
+                textView.setText(update_score.dartthrow(1));
                 break;
             case R.id.button3:
-                textView.setText("Dart 3");
+                textView.setText(update_score.dartthrow(1));
                 break;
         }
     }

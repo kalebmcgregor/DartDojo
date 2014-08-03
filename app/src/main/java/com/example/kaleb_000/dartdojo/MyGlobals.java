@@ -5,9 +5,12 @@ package com.example.kaleb_000.dartdojo;
  */
 public class MyGlobals {
 
+    int score = 0;
     //Will spit out value based on the value inputted into the function
-    public int dartthrow(int i) {
-
-        return i = i +1;
+    public String dartthrow(int i) {
+        String string = new String();
+        score = score + i;
+        string = Integer.toString(score);
+        return string;
     }
 }
