@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.R.*;
 
@@ -16,13 +17,18 @@ import com.example.kaleb_000.dartdojo.MyGlobals;
 public class Solitaire extends Activity {
 
 
-    MyGlobals update_score = new MyGlobals();
+    MyGlobals global = new MyGlobals();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solitaire);
-        TextView textView = (TextView) findViewById(R.id.Score);
+    }
 
+    public void button_visibility_toggle(int visible, int invisible) {
+        Button button_visible = (Button) findViewById(visible);
+        button_visible.setVisibility(View.VISIBLE);
+        Button button_invisible = (Button) findViewById(invisible);
+        button_invisible.setVisibility(View.INVISIBLE);
     }
 
 
@@ -54,17 +60,35 @@ public class Solitaire extends Activity {
         //Set new TextView textView with the same properties as the current textView
         TextView textView = (TextView) findViewById(R.id.Score);
 
+        //Set the button Array when it is pressed
+
         //Select the right button and do actions depending on which dart was selected
         switch(button_id){
             case R.id.button:
-                textView.setText(update_score.dartthrow(1));
+                textView.setText(global.dartthrow(1));
+                button_visibility_toggle(R.id.button4,R.id.button);
                 break;
             case R.id.button2:
-                textView.setText(update_score.dartthrow(1));
+                textView.setText(global.dartthrow(1));
+                button_visibility_toggle(R.id.button5,R.id.button2);
                 break;
             case R.id.button3:
-                textView.setText(update_score.dartthrow(1));
+                textView.setText(global.dartthrow(1));
+                button_visibility_toggle(R.id.button6,R.id.button3);
                 break;
+            case R.id.button4:
+                textView.setText(global.dartthrow(-1));
+                button_visibility_toggle(R.id.button, R.id.button4);
+                break;
+            case R.id.button5:
+                textView.setText(global.dartthrow(-1));
+                button_visibility_toggle(R.id.button2,R.id.button5);
+                break;
+            case R.id.button6:
+                textView.setText(global.dartthrow(-1));
+                button_visibility_toggle(R.id.button3,R.id.button6);
+                break;
+
         }
     }
 
