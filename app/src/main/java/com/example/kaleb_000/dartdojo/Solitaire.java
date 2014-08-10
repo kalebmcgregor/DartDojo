@@ -15,6 +15,7 @@ public class Solitaire extends Activity {
     MyGlobals global = new MyGlobals();
     Number number = new Number();
     Number[] numbers = new Number[20];
+    int current_number = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
