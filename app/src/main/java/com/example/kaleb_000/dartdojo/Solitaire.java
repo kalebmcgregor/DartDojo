@@ -7,15 +7,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import com.example.kaleb_000.dartdojo.Number;
 
 public class Solitaire extends Activity {
 
 
     MyGlobals global = new MyGlobals();
+    Number number = new Number();
+    Number[] numbers = new Number[20];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solitaire);
+
+        //set the properties of number to 1 and none of the darts hit
+        number.set_properties(false, false, false, "1");
     }
 
     public void button_visibility_toggle(int visible, int invisible) {
@@ -24,7 +31,7 @@ public class Solitaire extends Activity {
         Button button_invisible = (Button) findViewById(invisible);
         button_invisible.setVisibility(View.INVISIBLE);
     }
-
+    //sets dart buttons 1, 2, and 3 to visible. Sets dart buttons 4, 5, and 6 to invisible.
     public void dart_default_visibility() {
         Button dart_1 = (Button) findViewById(R.id.button);
         Button dart_2 = (Button) findViewById(R.id.button2);
