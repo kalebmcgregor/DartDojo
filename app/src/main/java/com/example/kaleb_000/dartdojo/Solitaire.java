@@ -25,6 +25,22 @@ public class Solitaire extends Activity {
         button_invisible.setVisibility(View.INVISIBLE);
     }
 
+    public void dart_default_visibility() {
+        Button dart_1 = (Button) findViewById(R.id.button);
+        Button dart_2 = (Button) findViewById(R.id.button2);
+        Button dart_3 = (Button) findViewById(R.id.button3);
+        Button dart_4 = (Button) findViewById(R.id.button4);
+        Button dart_5 = (Button) findViewById(R.id.button5);
+        Button dart_6 = (Button) findViewById(R.id.button6);
+        dart_1.setVisibility(View.VISIBLE);
+        dart_2.setVisibility(View.VISIBLE);
+        dart_3.setVisibility(View.VISIBLE);
+        dart_4.setVisibility(View.INVISIBLE);
+        dart_5.setVisibility(View.INVISIBLE);
+        dart_6.setVisibility(View.INVISIBLE);
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,8 +69,6 @@ public class Solitaire extends Activity {
 
         //Set new TextView textView with the same properties as the current textView
         TextView textView = (TextView) findViewById(R.id.Score);
-
-        //Set the button Array when it is pressed
 
         //Select the right button and do actions depending on which dart was selected
         switch(button_id){
@@ -86,8 +100,21 @@ public class Solitaire extends Activity {
         }
     }
 
-    
+    //Function used when next_number button and previous_number button is pressed
     public void next_previous_button_pressed (View view) {
+        //Set int button_id to the id of the button that was pressed
+        int button_id = view.getId();
 
+        //Select the right button and do actions depending on which dart was selected
+        switch(button_id) {
+            case R.id.previous_number:
+                dart_default_visibility();
+                break;
+            case R.id.next_number:
+                dart_default_visibility();
+                break;
+
+
+        }
     }
 }
