@@ -1,18 +1,12 @@
 package com.example.kaleb_000.dartdojo;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.R.*;
-
-import com.example.kaleb_000.dartdojo.MyGlobals;
 
 public class Solitaire extends Activity {
 
@@ -66,15 +60,15 @@ public class Solitaire extends Activity {
         switch(button_id){
             case R.id.button:
                 textView.setText(global.dartthrow(1));
-                button_visibility_toggle(R.id.button4,R.id.button);
+                button_visibility_toggle(R.id.button4, R.id.button);
                 break;
             case R.id.button2:
                 textView.setText(global.dartthrow(1));
-                button_visibility_toggle(R.id.button5,R.id.button2);
+                button_visibility_toggle(R.id.button5, R.id.button2);
                 break;
             case R.id.button3:
                 textView.setText(global.dartthrow(1));
-                button_visibility_toggle(R.id.button6,R.id.button3);
+                button_visibility_toggle(R.id.button6, R.id.button3);
                 break;
             case R.id.button4:
                 textView.setText(global.dartthrow(-1));
@@ -82,15 +76,18 @@ public class Solitaire extends Activity {
                 break;
             case R.id.button5:
                 textView.setText(global.dartthrow(-1));
-                button_visibility_toggle(R.id.button2,R.id.button5);
+                button_visibility_toggle(R.id.button2, R.id.button5);
                 break;
             case R.id.button6:
                 textView.setText(global.dartthrow(-1));
-                button_visibility_toggle(R.id.button3,R.id.button6);
+                button_visibility_toggle(R.id.button3, R.id.button6);
                 break;
 
         }
     }
 
+    
+    public void next_previous_button_pressed (View view) {
 
+    }
 }
