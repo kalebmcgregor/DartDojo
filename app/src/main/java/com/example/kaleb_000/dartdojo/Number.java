@@ -19,14 +19,6 @@ public class Number extends Activity {
         this.number = number;
     }
 
-    //Will return
-    public int previous_number() {
-        int previous_number = Integer.parseInt(this.number);
-        previous_number = previous_number - 1;
-        this.number = Integer.toString(previous_number);
-        return previous_number;
-    }
-
     public boolean get_dart_1() {
         return this.dart_1_hit;
     }
@@ -42,4 +34,20 @@ public class Number extends Activity {
     public String get_number() {
         return this.number;
     }
+
+    public void set_dart_1(boolean dart_hit) {
+        this.dart_1_hit = dart_hit;
+    }
+
+    public void set_dart_2(boolean dart_hit) {
+        this.dart_2_hit = dart_hit;
+    }
+
+    public void set_dart_3(boolean dart_hit) {
+        this.dart_3_hit = dart_hit;
+    }
+
+    public void set_number(int i) {
+        this.number = Integer.toString(i);
+   }
 }

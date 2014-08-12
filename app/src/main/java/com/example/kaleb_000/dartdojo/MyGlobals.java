@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import java.util.Arrays;
 
+
 /**
  * Created by kaleb_000 on 8/3/2014.
  */
@@ -27,6 +28,8 @@ public class MyGlobals extends Activity {
         string = Integer.toString(score);
         return string;
     }
+
+
 
 
 }

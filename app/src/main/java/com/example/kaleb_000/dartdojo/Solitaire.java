@@ -9,12 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.example.kaleb_000.dartdojo.Number;
 
+import org.w3c.dom.Text;
+
 public class Solitaire extends Activity {
 
 
     MyGlobals global = new MyGlobals();
-    Number number = new Number();
-    Number[] numbers = new Number[20];
+    Number[] numbers = new Number[21];
     int current_number = 1;
 
     @Override
@@ -22,8 +23,11 @@ public class Solitaire extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solitaire);
 
-        //set the properties of number to 1 and none of the darts hit
-        number.set_properties(false, false, false, "1");
+        //Fill the dart Array
+        for(int i=0; i< numbers.length; i++){
+            numbers[i] = new Number();
+            numbers[i].set_number(i+1);
+        }
     }
 
     public void button_visibility_toggle(int visible, int invisible) {
@@ -48,7 +52,25 @@ public class Solitaire extends Activity {
         dart_6.setVisibility(View.INVISIBLE);
     }
 
+    public void set_dart(Number number) {
+        if (number.get_dart_1()) {
+            button_visibility_toggle(R.id.button4, R.id.button);
+        } else {
+            button_visibility_toggle(R.id.button, R.id.button4);
+        }
 
+        if (number.get_dart_2()) {
+            button_visibility_toggle(R.id.button5, R.id.button2);
+        } else {
+            button_visibility_toggle(R.id.button2, R.id.button5);
+        }
+
+        if (number.get_dart_3()) {
+            button_visibility_toggle(R.id.button6, R.id.button3);
+        } else {
+            button_visibility_toggle(R.id.button3, R.id.button6);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,26 +105,32 @@ public class Solitaire extends Activity {
             case R.id.button:
                 textView.setText(global.dartthrow(1));
                 button_visibility_toggle(R.id.button4, R.id.button);
+                numbers[current_number].set_dart_1(true);
                 break;
             case R.id.button2:
                 textView.setText(global.dartthrow(1));
                 button_visibility_toggle(R.id.button5, R.id.button2);
+                numbers[current_number].set_dart_2(true);
                 break;
             case R.id.button3:
                 textView.setText(global.dartthrow(1));
                 button_visibility_toggle(R.id.button6, R.id.button3);
+                numbers[current_number].set_dart_3(true);
                 break;
             case R.id.button4:
                 textView.setText(global.dartthrow(-1));
                 button_visibility_toggle(R.id.button, R.id.button4);
+                numbers[current_number].set_dart_1(false);
                 break;
             case R.id.button5:
                 textView.setText(global.dartthrow(-1));
                 button_visibility_toggle(R.id.button2, R.id.button5);
+                numbers[current_number].set_dart_2(false);
                 break;
             case R.id.button6:
                 textView.setText(global.dartthrow(-1));
                 button_visibility_toggle(R.id.button3, R.id.button6);
+                numbers[current_number].set_dart_3(false);
                 break;
 
         }
@@ -112,17 +140,25 @@ public class Solitaire extends Activity {
     public void next_previous_button_pressed (View view) {
         //Set int button_id to the id of the button that was pressed
         int button_id = view.getId();
+        TextView textView = (TextView) findViewById(R.id.number);
 
         //Select the right button and do actions depending on which dart was selected
         switch(button_id) {
             case R.id.previous_number:
-                dart_default_visibility();
+                if (current_number >= 1) {
+                    current_number--;
+                    set_dart(numbers[current_number]);
+                    textView.setText(numbers[current_number].get_number());
+                }
                 break;
             case R.id.next_number:
-                dart_default_visibility();
+                if (current_number <= 19) {
+                    dart_default_visibility();
+                    current_number++;
+                    set_dart(numbers[current_number]);
+                    textView.setText(numbers[current_number].get_number());
+                }
                 break;
-
-
         }
     }
 }
