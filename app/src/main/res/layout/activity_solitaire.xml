@@ -8,7 +8,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.kaleb_000.dartdojo.Solitaire"
     android:id="@+id/SolitaireLayout"
-    android:background="#ff405073">
+    android:background="#ff0e002f">
 
     <Button
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
         android:layout_marginTop="66dp"
         android:layout_gravity="right|center"
         android:onClick="dart_pressed"
-        android:background="@drawable/dart_button"
+        android:background="@drawable/white_dart_button"
         android:layout_alignParentTop="true" />
 
     <Button
@@ -26,7 +26,7 @@
         android:id="@+id/button3"
         android:layout_gravity="right|center"
         android:onClick="dart_pressed"
-        android:background="@drawable/dart_button"
+        android:background="@drawable/white_dart_button"
         android:layout_below="@+id/button2"
         android:layout_alignParentStart="true" />
 
@@ -36,7 +36,7 @@
         android:id="@+id/button2"
         android:layout_gravity="right|center"
         android:onClick="dart_pressed"
-        android:background="@drawable/dart_button"
+        android:background="@drawable/white_dart_button"
         android:layout_alignStart="@+id/button2"
         android:layout_below="@+id/button" />
 
@@ -66,7 +66,7 @@
         android:id="@+id/button5"
         android:layout_gravity="right|center"
         android:onClick="dart_pressed"
-        android:background="@drawable/dart_button"
+        android:background="@drawable/white_dart_button"
         android:layout_toEndOf="@+id/textView"
         android:layout_below="@+id/button"
         android:visibility="invisible" />
@@ -77,7 +77,7 @@
         android:id="@+id/button4"
         android:layout_gravity="right|center"
         android:onClick="dart_pressed"
-        android:background="@drawable/dart_button"
+        android:background="@drawable/white_dart_button"
         android:layout_toEndOf="@+id/button"
         android:visibility="invisible"
         android:layout_above="@+id/button5"
@@ -89,7 +89,7 @@
         android:id="@+id/button6"
         android:layout_gravity="right|center"
         android:onClick="dart_pressed"
-        android:background="@drawable/dart_button"
+        android:background="@drawable/white_dart_button"
         android:layout_alignTop="@+id/button3"
         android:layout_alignParentEnd="true"
         android:layout_alignBottom="@+id/button3"
@@ -99,23 +99,23 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
         android:id="@+id/next_number"
         android:onClick="next_previous_button_pressed"
         android:layout_below="@+id/button6"
-        android:layout_alignStart="@+id/button6"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/white_arrow_black_border"
         android:layout_alignEnd="@+id/button6" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Previous"
         android:id="@+id/previous_number"
         android:layout_alignTop="@+id/next_number"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/textView"
-        android:onClick="next_previous_button_pressed"/>
+        android:onClick="next_previous_button_pressed"
+        android:visibility="invisible"
+        android:background="@drawable/reverse_white_arrow_black_border"
+        android:height="@android:dimen/notification_large_icon_height" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -123,9 +123,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="1"
         android:id="@+id/number"
-        android:layout_marginTop="63dp"
+        android:layout_marginTop="300dp"
         android:textSize="100dp"
-        android:layout_below="@+id/next_number"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

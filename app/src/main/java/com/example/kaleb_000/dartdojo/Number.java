@@ -50,4 +50,6 @@ public class Number extends Activity {
     public void set_number(int i) {
         this.number = Integer.toString(i);
    }
+
+    public void set_b() { this.number = "B"; }
 }

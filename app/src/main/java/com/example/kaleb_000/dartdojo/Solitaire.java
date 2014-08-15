@@ -28,14 +28,30 @@ public class Solitaire extends Activity {
             numbers[i] = new Number();
             numbers[i].set_number(i+1);
         }
+        //set the last place of the array to B for the bulls-eye
+        numbers[20].set_b();
     }
 
+    //First variable passed in will be set to visible, while the second will be set to invisible
     public void button_visibility_toggle(int visible, int invisible) {
         Button button_visible = (Button) findViewById(visible);
         button_visible.setVisibility(View.VISIBLE);
         Button button_invisible = (Button) findViewById(invisible);
         button_invisible.setVisibility(View.INVISIBLE);
     }
+
+    //set variable passed in to visible (usually a R.id variable)
+    public void make_button_visible(int visible) {
+        Button button_visible = (Button) findViewById(visible);
+        button_visible.setVisibility(View.VISIBLE);
+    }
+
+    //set variable passed in to invisible (usually a R.id variable)
+    public void make_button_invisible(int invisible) {
+        Button button_invisible = (Button) findViewById(invisible);
+        button_invisible.setVisibility(View.INVISIBLE);
+    }
+
     //sets dart buttons 1, 2, and 3 to visible. Sets dart buttons 4, 5, and 6 to invisible.
     public void dart_default_visibility() {
         Button dart_1 = (Button) findViewById(R.id.button);
@@ -52,6 +68,7 @@ public class Solitaire extends Activity {
         dart_6.setVisibility(View.INVISIBLE);
     }
 
+    //will set the dart visibility according to the properties of the number class passed in
     public void set_dart(Number number) {
         if (number.get_dart_1()) {
             button_visibility_toggle(R.id.button4, R.id.button);
@@ -145,19 +162,49 @@ public class Solitaire extends Activity {
         //Select the right button and do actions depending on which dart was selected
         switch(button_id) {
             case R.id.previous_number:
+
+                //this if statement is here to prevent current_number for going negative
                 if (current_number >= 1) {
+
+                    //decrease current_number by 1
                     current_number--;
+
+                    if (current_number == 0) {
+                        make_button_invisible(R.id.previous_number);
+                    }
+
+                    //set the dart visibility of the current number
                     set_dart(numbers[current_number]);
+
+                    //change the number text
                     textView.setText(numbers[current_number].get_number());
+
+                    //make next_button visible so it always populates
+                    make_button_visible(R.id.next_number);
+
                 }
+
                 break;
             case R.id.next_number:
+
+                //this if statement is here to prevent current_number for being too big
                 if (current_number <= 19) {
+
+                    //changes the next set to default positions if they aren't set yet
                     dart_default_visibility();
+
+                    //increment the current_number
                     current_number++;
+
                     set_dart(numbers[current_number]);
                     textView.setText(numbers[current_number].get_number());
+                    make_button_visible(R.id.previous_number);
+
+                    if (current_number == 20) {
+                        make_button_invisible(R.id.next_number);
+                    }
                 }
+
                 break;
         }
     }
