@@ -13,8 +13,11 @@ import com.example.kaleb_000.dartdojo.Number;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.prefs.PreferenceChangeEvent;
 
 public class Solitaire extends Activity {
@@ -25,8 +28,8 @@ public class Solitaire extends Activity {
     int current_number = 0;
     List score_list = new ArrayList();
     int high_score = 0;
-    int counter = 0;
-    int average = 0;
+    double average = 0;
+    public static final String PREFS_NAME = "Solitaire";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +43,13 @@ public class Solitaire extends Activity {
         }
         //set the last place of the array to B for the bulls-eye
         numbers[20].set_b();
-    }
 
-    protected void onPause() {
-        super.onPause();
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        Set<String> set = settings.getStringSet("score_list", new HashSet<String>());
+        score_list.addAll(set);
+        high_score = settings.getInt("high_score", high_score);
 
-        SharedPreferences settings = getPreferences(0);
+        submit_button_pressed(new View(this));
     }
 
     //First variable passed in will be set to visible, while the second will be set to invisible
@@ -169,16 +173,46 @@ public class Solitaire extends Activity {
         }
     }
 
+    protected void onPause(){
+        super.onPause();
+
+        Set<String> set = new HashSet<String>();
+        set.addAll(score_list);
+        // We need an Editor object to make preference changes.
+        // All objects are from android.context.Context
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putStringSet("score_list", set);
+        editor.putInt("high_score", high_score);
+
+        // Commit the edits!
+        editor.commit();
+    }
+
     public void submit_button_pressed (View view) {
-        counter++;
-        average = 0;
+        //create decimal format which we will use later to trim the average to two decimal spots
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        //add the score to the list of scores we already have
+        score_list.add(global.score);
+
+        //calculate the average of the list of scores and set it to average
+        average = global.calculateAverage(score_list);
+
+        //set the high score if the current score is greater than the high score
         if (global.score > high_score) {
             high_score = global.score;
         }
-        TextView average_score_text = (TextView) findViewById(R.id.number);
-        TextView high_score_text = (TextView) findViewById(R.id.number);
 
-        average_score_text.setText(Integer.toString(average));
+        //grab the textview for average_score and high_score text boxes
+        TextView average_score_text = (TextView) findViewById(R.id.average_score);
+        TextView high_score_text = (TextView) findViewById(R.id.high_score);
+
+        //set average to the format of df
+        average = Double.valueOf(df.format(average));
+
+        //set average_score text and high_score text to the values of average and high_score
+        average_score_text.setText(Double.toString(average));
         high_score_text.setText(Integer.toString(high_score));
     }
 

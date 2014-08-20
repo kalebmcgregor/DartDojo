@@ -30,7 +30,7 @@ public class MyGlobals extends Activity {
         return string;
     }
 
-    private double calculateAverage (List<Integer> marks) {
+    public double calculateAverage (List<Integer> marks) {
         Integer sum = 0;
         if(!marks.isEmpty()) {
             for (Integer mark : marks ) {

@@ -161,7 +161,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="No Avg"
-        android:id="@+id/textView4"
+        android:id="@+id/average_score"
         android:textColor="#ffffffff"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true" />
@@ -171,7 +171,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Just a wimp"
-        android:id="@+id/textView5"
+        android:id="@+id/high_score"
         android:textColor="#ffffffff"
         android:layout_below="@+id/textView"
         android:layout_alignParentEnd="true" />
