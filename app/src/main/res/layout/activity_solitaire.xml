@@ -18,7 +18,8 @@
         android:layout_gravity="right|center"
         android:onClick="dart_pressed"
         android:background="@drawable/white_dart_button"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
@@ -28,7 +29,8 @@
         android:onClick="dart_pressed"
         android:background="@drawable/white_dart_button"
         android:layout_below="@+id/button2"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
@@ -38,7 +40,8 @@
         android:onClick="dart_pressed"
         android:background="@drawable/white_dart_button"
         android:layout_alignStart="@+id/button2"
-        android:layout_below="@+id/button" />
+        android:layout_below="@+id/button"
+        android:layout_toStartOf="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -160,7 +163,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="No Avg"
+        android:text="0"
         android:id="@+id/average_score"
         android:textColor="#ffffffff"
         android:layout_below="@+id/textView"
@@ -170,7 +173,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Just a wimp"
+        android:text="0"
         android:id="@+id/high_score"
         android:textColor="#ffffffff"
         android:layout_below="@+id/textView"
@@ -185,5 +188,15 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/previous_number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="   pct%"
+        android:id="@+id/textView4"
+        android:layout_toStartOf="@+id/button4"
+        android:layout_below="@+id/button3"
+        android:layout_toEndOf="@+id/button3" />
 
 </RelativeLayout>

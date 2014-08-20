@@ -128,6 +128,13 @@ public class Solitaire extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void set_default_all_darts (Number[] dartArray) {
+        for (int i = 0; i < dartArray.length; i++) {
+            dartArray[i].set_properties(false, false, false, dartArray[i].get_number());
+        }
+        global.score = 0;
+    }
+
     //function used for deciding which dart was thrown in Solitaire class
     public void dart_pressed(View view){
 
@@ -198,29 +205,37 @@ public class Solitaire extends Activity {
 
         //calculate the average of the list of scores and set it to average
         average = global.calculateAverage(score_list);
-
         //set the high score if the current score is greater than the high score
         if (global.score > high_score) {
             high_score = global.score;
         }
 
-        //grab the textview for average_score and high_score text boxes
+        global.score = 0;
+
+        //grab the textview for average_score, high_score, and current score text boxes
         TextView average_score_text = (TextView) findViewById(R.id.average_score);
         TextView high_score_text = (TextView) findViewById(R.id.high_score);
-
+        TextView score_text = (TextView) findViewById(R.id.Score);
         //set average to the format of df
         average = Double.valueOf(df.format(average));
 
         //set average_score text and high_score text to the values of average and high_score
         average_score_text.setText(Double.toString(average));
         high_score_text.setText(Integer.toString(high_score));
+
+
+        score_text.setText(Integer.toString(global.score));
+
     }
 
     public void clear_button_pressed (View view) {
         score_list.clear();
         high_score = 0;
         average = 0;
+        global.score = 0;
         submit_button_pressed(new View(this));
+        set_default_all_darts(numbers);
+        dart_default_visibility();
     }
 
     //Function used when next_number button and previous_number button is pressed
