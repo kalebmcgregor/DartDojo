@@ -1,22 +1,32 @@
 package com.example.kaleb_000.dartdojo;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.TextView;
 import com.example.kaleb_000.dartdojo.Number;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.prefs.PreferenceChangeEvent;
+
 public class Solitaire extends Activity {
 
 
     MyGlobals global = new MyGlobals();
     Number[] numbers = new Number[21];
-    int current_number = 1;
+    int current_number = 0;
+    List score_list = new ArrayList();
+    int high_score = 0;
+    int counter = 0;
+    int average = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,12 @@ public class Solitaire extends Activity {
         }
         //set the last place of the array to B for the bulls-eye
         numbers[20].set_b();
+    }
+
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences settings = getPreferences(0);
     }
 
     //First variable passed in will be set to visible, while the second will be set to invisible
@@ -153,6 +169,19 @@ public class Solitaire extends Activity {
         }
     }
 
+    public void submit_button_pressed (View view) {
+        counter++;
+        average = 0;
+        if (global.score > high_score) {
+            high_score = global.score;
+        }
+        TextView average_score_text = (TextView) findViewById(R.id.number);
+        TextView high_score_text = (TextView) findViewById(R.id.number);
+
+        average_score_text.setText(Integer.toString(average));
+        high_score_text.setText(Integer.toString(high_score));
+    }
+
     //Function used when next_number button and previous_number button is pressed
     public void next_previous_button_pressed (View view) {
         //Set int button_id to the id of the button that was pressed
@@ -188,14 +217,13 @@ public class Solitaire extends Activity {
             case R.id.next_number:
 
                 //this if statement is here to prevent current_number for being too big
-                if (current_number <= 19) {
+                if (current_number <= 20) {
 
                     //changes the next set to default positions if they aren't set yet
                     dart_default_visibility();
 
                     //increment the current_number
                     current_number++;
-
                     set_dart(numbers[current_number]);
                     textView.setText(numbers[current_number].get_number());
                     make_button_visible(R.id.previous_number);

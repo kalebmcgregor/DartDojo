@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -27,6 +28,17 @@ public class MyGlobals extends Activity {
         score = score + i;
         string = Integer.toString(score);
         return string;
+    }
+
+    private double calculateAverage (List<Integer> marks) {
+        Integer sum = 0;
+        if(!marks.isEmpty()) {
+            for (Integer mark : marks ) {
+                sum += mark;
+            }
+            return sum.doubleValue() / marks.size();
+        }
+        return sum;
     }
 
 
