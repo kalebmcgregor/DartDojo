@@ -176,4 +176,14 @@
         android:layout_below="@+id/textView"
         android:layout_alignParentEnd="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:id="@+id/button7"
+        android:onClick="clear_button_pressed"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/previous_number" />
+
 </RelativeLayout>

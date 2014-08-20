@@ -216,6 +216,13 @@ public class Solitaire extends Activity {
         high_score_text.setText(Integer.toString(high_score));
     }
 
+    public void clear_button_pressed (View view) {
+        score_list.clear();
+        high_score = 0;
+        average = 0;
+        submit_button_pressed(new View(this));
+    }
+
     //Function used when next_number button and previous_number button is pressed
     public void next_previous_button_pressed (View view) {
         //Set int button_id to the id of the button that was pressed
