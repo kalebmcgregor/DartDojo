@@ -197,6 +197,37 @@
         android:id="@+id/textView4"
         android:layout_toStartOf="@+id/button4"
         android:layout_below="@+id/button3"
-        android:layout_toEndOf="@+id/button3" />
+        android:layout_toEndOf="@+id/button3"
+        android:textColor="#ffffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0"
+        android:id="@+id/dart_1_percent"
+        android:layout_alignTop="@+id/button4"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0"
+        android:id="@+id/dart_2_percent"
+        android:layout_alignTop="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0"
+        android:id="@+id/dart_3_percent"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/button3"
+        android:textColor="#ffffffff" />
 
 </RelativeLayout>
