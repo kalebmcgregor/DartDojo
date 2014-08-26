@@ -25,14 +25,14 @@ public class Solitaire extends Activity {
 
     MyGlobals global = new MyGlobals();
     Number[] numbers = new Number[21];
-    double[] dart_percent_list = new double[63];
+    int[][] dart_percent_list = new int[2][63];
     int current_number = 0;
     List score_list = new ArrayList();
     int high_score = 0;
     double average = 0;
-    int dart_1_index = 1;
-    int dart_2_index = 2;
-    int dart_3_index = 3;
+    int dart_1_index = 0;
+    int dart_2_index = 1;
+    int dart_3_index = 2;
     public static final String PREFS_NAME = "Solitaire";
 
     @Override
@@ -47,8 +47,10 @@ public class Solitaire extends Activity {
         }
 
         //fill the dart_percent_list if it is empty
-        for(int i=0; i< dart_percent_list.length; i++) {
-            dart_percent_list[i] = 0;
+        for (int j=0; j < 2; j++) {
+            for (int i = 0; i < dart_percent_list[0].length; i++) {
+                dart_percent_list[j][i] = 1;
+            }
         }
 
         //set the last place of the array to B for the bulls-eye
@@ -65,36 +67,36 @@ public class Solitaire extends Activity {
     public void add_dart_average (int i) {
 
         if (i == 1) {
-            dart_percent_list[dart_1_index] = dart_percent_list[dart_1_index + 1]
-            dart_1_index = dart_1_index + 3;
+            dart_percent_list[0][dart_1_index]++;
+            dart_percent_list[1][dart_1_index]++;
         }
 
         if (i == 2) {
-            dart_percent_list[dart_2_index].add(1);
-            dart_2_index = dart_2_index + 3;
+            dart_percent_list[0][dart_2_index]++;
+            dart_percent_list[1][dart_2_index]++;
         }
 
         if (i == 3) {
-            dart_percent_list[dart_3_index].add(1);
-            dart_3_index = dart_3_index + 3;
+            dart_percent_list[0][dart_3_index]++;
+            dart_percent_list[1][dart_3_index]++;
         }
     }
 
     public void remove_dart_average (int i) {
 
         if (i == 1) {
-            dart_1_index = dart_1_index - 3;
-            dart_percent_list[dart_1_index].remove(dart_percent_list[dart_1_index].size());
+            dart_percent_list[0][dart_1_index]--;
+            dart_percent_list[1][dart_1_index]--;
         }
 
         if (i == 2) {
-            dart_2_index = dart_2_index - 3;
-            dart_percent_list[dart_2_index].remove(dart_percent_list[dart_2_index].size());
+            dart_percent_list[0][dart_2_index]--;
+            dart_percent_list[1][dart_2_index]--;
         }
 
         if (i == 3) {
-            dart_3_index = dart_3_index - 3;
-            dart_percent_list[dart_3_index].remove(dart_percent_list[dart_3_index].size());
+            dart_percent_list[0][dart_3_index]--;
+            dart_percent_list[1][dart_3_index]--;
         }
     }
 
@@ -102,14 +104,21 @@ public class Solitaire extends Activity {
         TextView dart_1_percent = (TextView) findViewById(R.id.dart_1_percent);
         TextView dart_2_percent = (TextView) findViewById(R.id.dart_2_percent);
         TextView dart_3_percent = (TextView) findViewById(R.id.dart_3_percent);
+        double dart_1 = get_dart_average(dart_1_index);
         dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
         dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
         dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
     }
 
     public double get_dart_average (int i) {
-        double sum = global.calculateAverage(dart_percent_list[i]);
-        return sum;
+        DecimalFormat df = new DecimalFormat("#.##");
+        int average = (dart_percent_list[0][i]/dart_percent_list[1][i]);
+        if (average == 0) {
+            return 0;
+        }
+        else {
+            return Double.valueOf(df.format(average));
+        }
     }
 
 
@@ -213,6 +222,7 @@ public class Solitaire extends Activity {
                 numbers[current_number].set_dart_1(true);
                 add_dart_average(1);
                 set_dart_percent_text();
+                dart_1_index = dart_1_index + 3;
                 break;
             case R.id.button2:
                 textView.setText(global.dartthrow(1));
@@ -220,6 +230,7 @@ public class Solitaire extends Activity {
                 numbers[current_number].set_dart_2(true);
                 add_dart_average(2);
                 set_dart_percent_text();
+                dart_2_index = dart_2_index + 3;
                 break;
             case R.id.button3:
                 textView.setText(global.dartthrow(1));
@@ -227,12 +238,14 @@ public class Solitaire extends Activity {
                 numbers[current_number].set_dart_3(true);
                 add_dart_average(3);
                 set_dart_percent_text();
+                dart_3_index = dart_3_index + 3;
                 break;
             case R.id.button4:
                 textView.setText(global.dartthrow(-1));
                 button_visibility_toggle(R.id.button, R.id.button4);
                 numbers[current_number].set_dart_1(false);
                 remove_dart_average(1);
+                dart_1_index = dart_1_index - 3;
                 set_dart_percent_text();
                 break;
             case R.id.button5:
@@ -240,6 +253,7 @@ public class Solitaire extends Activity {
                 button_visibility_toggle(R.id.button2, R.id.button5);
                 numbers[current_number].set_dart_2(false);
                 remove_dart_average(2);
+                dart_2_index = dart_2_index - 3;
                 set_dart_percent_text();
                 break;
             case R.id.button6:
@@ -247,6 +261,7 @@ public class Solitaire extends Activity {
                 button_visibility_toggle(R.id.button3, R.id.button6);
                 numbers[current_number].set_dart_3(false);
                 remove_dart_average(3);
+                dart_3_index = dart_3_index - 3;
                 set_dart_percent_text();
                 break;
 
