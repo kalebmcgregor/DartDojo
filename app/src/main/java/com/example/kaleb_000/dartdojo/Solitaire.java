@@ -190,54 +190,54 @@ public class Solitaire extends Activity {
                 button_visibility_toggle(R.id.button4, R.id.button);
                 numbers[current_number].set_dart_1(true);
                 dart_percent_list[0][dart_1_index]++;
-                //dart_percent_list[1][dart_1_index]++;
                 dart_hit[dart_1_index] = true;
-                //dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
+                dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
+                dart_percent_list[1][dart_1_index]++;
                 break;
             case R.id.button2:
                 textView.setText(global.dartthrow(1));
                 button_visibility_toggle(R.id.button5, R.id.button2);
                 numbers[current_number].set_dart_2(true);
                 dart_percent_list[0][dart_2_index]++;
-                //dart_percent_list[1][dart_2_index]++;
                 dart_hit[dart_2_index] = true;
-                //dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
+                dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
+                dart_percent_list[1][dart_2_index]++;
                 break;
             case R.id.button3:
                 textView.setText(global.dartthrow(1));
                 button_visibility_toggle(R.id.button6, R.id.button3);
                 numbers[current_number].set_dart_3(true);
                 dart_percent_list[0][dart_3_index]++;
-                //dart_percent_list[1][dart_3_index]++;
                 dart_hit[dart_2_index] = true;
-                //dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
+                dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
+                dart_percent_list[1][dart_3_index]++;
                 break;
             case R.id.button4:
                 textView.setText(global.dartthrow(-1));
                 button_visibility_toggle(R.id.button, R.id.button4);
                 numbers[current_number].set_dart_1(false);
                 dart_percent_list[0][dart_1_index]--;
-                //dart_percent_list[1][dart_1_index]--;
                 dart_hit[dart_1_index] = false;
-                //dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
+                dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
+                dart_percent_list[1][dart_1_index]--;
                 break;
             case R.id.button5:
                 textView.setText(global.dartthrow(-1));
                 button_visibility_toggle(R.id.button2, R.id.button5);
                 numbers[current_number].set_dart_2(false);
                 dart_percent_list[0][dart_2_index]--;
-                //dart_percent_list[1][dart_2_index]--;
+                dart_percent_list[1][dart_2_index]--;
                 dart_hit[dart_1_index] = false;
-                //dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
+                dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
                 break;
             case R.id.button6:
                 textView.setText(global.dartthrow(-1));
                 button_visibility_toggle(R.id.button3, R.id.button6);
                 numbers[current_number].set_dart_3(false);
                 dart_percent_list[0][dart_3_index]--;
-                //dart_percent_list[1][dart_3_index]--;
+                dart_percent_list[1][dart_3_index]--;
                 dart_hit[dart_1_index] = false;
-                //dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
+                dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
                 break;
 
         }
