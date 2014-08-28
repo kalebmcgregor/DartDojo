@@ -193,12 +193,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="   pct%"
+        android:text="Dart Accuracy"
         android:id="@+id/textView4"
-        android:layout_toStartOf="@+id/button4"
+        android:layout_toStartOf="@+id/high_score"
         android:layout_below="@+id/button3"
-        android:layout_toEndOf="@+id/button3"
-        android:textColor="#ffffffff" />
+        android:layout_toEndOf="@+id/average_score"
+        android:textColor="#ffffffff"
+        android:gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"

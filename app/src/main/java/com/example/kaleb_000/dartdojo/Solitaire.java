@@ -26,6 +26,7 @@ public class Solitaire extends Activity {
     MyGlobals global = new MyGlobals();
     Number[] numbers = new Number[21];
     int[][] dart_percent_list = new int[2][63];
+    boolean[] dart_hit = new boolean[63];
     int current_number = 0;
     List score_list = new ArrayList();
     int high_score = 0;
@@ -49,7 +50,9 @@ public class Solitaire extends Activity {
         //fill the dart_percent_list if it is empty
         for (int j=0; j < 2; j++) {
             for (int i = 0; i < dart_percent_list[0].length; i++) {
-                dart_percent_list[j][i] = 1;
+                dart_percent_list[0][i] = 0;
+                dart_percent_list[1][i] = 1;
+                dart_hit[i] = false;
             }
         }
 
@@ -61,66 +64,20 @@ public class Solitaire extends Activity {
         score_list.addAll(set);
         high_score = settings.getInt("high_score", high_score);
 
-        submit_button_pressed(new View(this));
-    }
-
-    public void add_dart_average (int i) {
-
-        if (i == 1) {
-            dart_percent_list[0][dart_1_index]++;
-            dart_percent_list[1][dart_1_index]++;
-        }
-
-        if (i == 2) {
-            dart_percent_list[0][dart_2_index]++;
-            dart_percent_list[1][dart_2_index]++;
-        }
-
-        if (i == 3) {
-            dart_percent_list[0][dart_3_index]++;
-            dart_percent_list[1][dart_3_index]++;
-        }
-    }
-
-    public void remove_dart_average (int i) {
-
-        if (i == 1) {
-            dart_percent_list[0][dart_1_index]--;
-            dart_percent_list[1][dart_1_index]--;
-        }
-
-        if (i == 2) {
-            dart_percent_list[0][dart_2_index]--;
-            dart_percent_list[1][dart_2_index]--;
-        }
-
-        if (i == 3) {
-            dart_percent_list[0][dart_3_index]--;
-            dart_percent_list[1][dart_3_index]--;
-        }
-    }
-
-    public void set_dart_percent_text () {
-        TextView dart_1_percent = (TextView) findViewById(R.id.dart_1_percent);
-        TextView dart_2_percent = (TextView) findViewById(R.id.dart_2_percent);
-        TextView dart_3_percent = (TextView) findViewById(R.id.dart_3_percent);
-        double dart_1 = get_dart_average(dart_1_index);
-        dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
-        dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
-        dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
+        //submit_button_pressed(new View(this));
     }
 
     public double get_dart_average (int i) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        int average = (dart_percent_list[0][i]/dart_percent_list[1][i]);
-        if (average == 0) {
-            return 0;
-        }
-        else {
-            return Double.valueOf(df.format(average));
-        }
-    }
 
+        if (dart_percent_list[1][i] <= 0) {
+            return 0;
+            }
+        double sum = dart_percent_list[0][i];
+        double n = dart_percent_list[1][i];
+        //double average = ((dart_percent_list[0][i] / dart_percent_list[1][i]) * 100);
+        double average = sum/n * 100;
+        return average;
+        }
 
     //First variable passed in will be set to visible, while the second will be set to invisible
     public void button_visibility_toggle(int visible, int invisible) {
@@ -205,6 +162,15 @@ public class Solitaire extends Activity {
         global.score = 0;
     }
 
+    public void set_dart_percent_text() {
+
+        TextView dart_1_percent = (TextView) findViewById(R.id.dart_1_percent);
+        TextView dart_2_percent = (TextView) findViewById(R.id.dart_2_percent);
+        TextView dart_3_percent = (TextView) findViewById(R.id.dart_3_percent);
+        dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
+        dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
+        dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
+    }
     //function used for deciding which dart was thrown in Solitaire class
     public void dart_pressed(View view){
 
@@ -213,6 +179,9 @@ public class Solitaire extends Activity {
 
         //Set new TextView textView with the same properties as the current textView
         TextView textView = (TextView) findViewById(R.id.Score);
+        TextView dart_1_percent = (TextView) findViewById(R.id.dart_1_percent);
+        TextView dart_2_percent = (TextView) findViewById(R.id.dart_2_percent);
+        TextView dart_3_percent = (TextView) findViewById(R.id.dart_3_percent);
 
         //Select the right button and do actions depending on which dart was selected
         switch(button_id){
@@ -220,49 +189,55 @@ public class Solitaire extends Activity {
                 textView.setText(global.dartthrow(1));
                 button_visibility_toggle(R.id.button4, R.id.button);
                 numbers[current_number].set_dart_1(true);
-                add_dart_average(1);
-                set_dart_percent_text();
-                dart_1_index = dart_1_index + 3;
+                dart_percent_list[0][dart_1_index]++;
+                //dart_percent_list[1][dart_1_index]++;
+                dart_hit[dart_1_index] = true;
+                //dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
                 break;
             case R.id.button2:
                 textView.setText(global.dartthrow(1));
                 button_visibility_toggle(R.id.button5, R.id.button2);
                 numbers[current_number].set_dart_2(true);
-                add_dart_average(2);
-                set_dart_percent_text();
-                dart_2_index = dart_2_index + 3;
+                dart_percent_list[0][dart_2_index]++;
+                //dart_percent_list[1][dart_2_index]++;
+                dart_hit[dart_2_index] = true;
+                //dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
                 break;
             case R.id.button3:
                 textView.setText(global.dartthrow(1));
                 button_visibility_toggle(R.id.button6, R.id.button3);
                 numbers[current_number].set_dart_3(true);
-                add_dart_average(3);
-                set_dart_percent_text();
-                dart_3_index = dart_3_index + 3;
+                dart_percent_list[0][dart_3_index]++;
+                //dart_percent_list[1][dart_3_index]++;
+                dart_hit[dart_2_index] = true;
+                //dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
                 break;
             case R.id.button4:
                 textView.setText(global.dartthrow(-1));
                 button_visibility_toggle(R.id.button, R.id.button4);
                 numbers[current_number].set_dart_1(false);
-                remove_dart_average(1);
-                dart_1_index = dart_1_index - 3;
-                set_dart_percent_text();
+                dart_percent_list[0][dart_1_index]--;
+                //dart_percent_list[1][dart_1_index]--;
+                dart_hit[dart_1_index] = false;
+                //dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
                 break;
             case R.id.button5:
                 textView.setText(global.dartthrow(-1));
                 button_visibility_toggle(R.id.button2, R.id.button5);
                 numbers[current_number].set_dart_2(false);
-                remove_dart_average(2);
-                dart_2_index = dart_2_index - 3;
-                set_dart_percent_text();
+                dart_percent_list[0][dart_2_index]--;
+                //dart_percent_list[1][dart_2_index]--;
+                dart_hit[dart_1_index] = false;
+                //dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
                 break;
             case R.id.button6:
                 textView.setText(global.dartthrow(-1));
                 button_visibility_toggle(R.id.button3, R.id.button6);
                 numbers[current_number].set_dart_3(false);
-                remove_dart_average(3);
-                dart_3_index = dart_3_index - 3;
-                set_dart_percent_text();
+                dart_percent_list[0][dart_3_index]--;
+                //dart_percent_list[1][dart_3_index]--;
+                dart_hit[dart_1_index] = false;
+                //dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
                 break;
 
         }
@@ -288,17 +263,33 @@ public class Solitaire extends Activity {
         //create decimal format which we will use later to trim the average to two decimal spots
         DecimalFormat df = new DecimalFormat("#.##");
 
+        TextView dart_1_percent = (TextView) findViewById(R.id.dart_1_percent);
+        TextView dart_2_percent = (TextView) findViewById(R.id.dart_2_percent);
+        TextView dart_3_percent = (TextView) findViewById(R.id.dart_3_percent);
+
         //add the score to the list of scores we already have
         score_list.add(global.score);
 
         //calculate the average of the list of scores and set it to average
         average = global.calculateAverage(score_list);
+
         //set the high score if the current score is greater than the high score
         if (global.score > high_score) {
             high_score = global.score;
         }
 
         global.score = 0;
+
+        dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
+        dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
+        dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
+
+            for (int i = 0; i < dart_percent_list[0].length; i++) {
+                dart_percent_list[1][i]++;
+            }
+
+
+
 
         //grab the textview for average_score, high_score, and current score text boxes
         TextView average_score_text = (TextView) findViewById(R.id.average_score);
@@ -313,6 +304,7 @@ public class Solitaire extends Activity {
 
 
         score_text.setText(Integer.toString(global.score));
+        dart_default_visibility();
 
     }
 
@@ -351,6 +343,10 @@ public class Solitaire extends Activity {
 
                     //change the number text
                     textView.setText(numbers[current_number].get_number());
+                    dart_1_index = dart_1_index - 3;
+                    dart_2_index = dart_2_index - 3;
+                    dart_3_index = dart_3_index - 3;
+                    set_dart_percent_text();
 
                     //make next_button visible so it always populates
                     make_button_visible(R.id.next_number);
@@ -371,6 +367,10 @@ public class Solitaire extends Activity {
                     set_dart(numbers[current_number]);
                     textView.setText(numbers[current_number].get_number());
                     make_button_visible(R.id.previous_number);
+                    dart_1_index = dart_1_index + 3;
+                    dart_2_index = dart_2_index + 3;
+                    dart_3_index = dart_3_index + 3;
+                    set_dart_percent_text();
 
                     if (current_number == 20) {
                         make_button_invisible(R.id.next_number);
