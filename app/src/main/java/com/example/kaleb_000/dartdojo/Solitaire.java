@@ -217,9 +217,9 @@ public class Solitaire extends Activity {
                 button_visibility_toggle(R.id.button, R.id.button4);
                 numbers[current_number].set_dart_1(false);
                 dart_percent_list[0][dart_1_index]--;
+                dart_percent_list[1][dart_1_index]--;
                 dart_hit[dart_1_index] = false;
                 dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
-                dart_percent_list[1][dart_1_index]--;
                 break;
             case R.id.button5:
                 textView.setText(global.dartthrow(-1));
@@ -285,7 +285,9 @@ public class Solitaire extends Activity {
         dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
 
             for (int i = 0; i < dart_percent_list[0].length; i++) {
-                dart_percent_list[1][i]++;
+                if (dart_hit[i] == false) {
+                    dart_percent_list[1][i]++;
+                }
             }
 
 
