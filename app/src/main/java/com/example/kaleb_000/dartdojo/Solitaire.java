@@ -288,6 +288,7 @@ public class Solitaire extends Activity {
                 if (dart_hit[i] == false) {
                     dart_percent_list[1][i]++;
                 }
+                dart_hit[i] = false;
             }
 
 
