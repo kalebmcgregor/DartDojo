@@ -263,10 +263,6 @@ public class Solitaire extends Activity {
         //create decimal format which we will use later to trim the average to two decimal spots
         DecimalFormat df = new DecimalFormat("#.##");
 
-        TextView dart_1_percent = (TextView) findViewById(R.id.dart_1_percent);
-        TextView dart_2_percent = (TextView) findViewById(R.id.dart_2_percent);
-        TextView dart_3_percent = (TextView) findViewById(R.id.dart_3_percent);
-
         //add the score to the list of scores we already have
         score_list.add(global.score);
 
@@ -278,29 +274,28 @@ public class Solitaire extends Activity {
             high_score = global.score;
         }
 
+        //reset the global score
         global.score = 0;
 
-        /*dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
-        dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
-        dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));*/
 
+        //increment all of the n values by 1 and all of dart_hit to false
             for (int i = 0; i < dart_percent_list[0].length; i++) {
-                /*if (dart_hit[i] == false) {
-                    dart_percent_list[1][i]++;
-                }*/
                 dart_hit[i] = false;
                 dart_percent_list[1][i]++;
             }
 
+        //update the dart_percent text
         set_dart_percent_text();
 
-
-
+        for (int i = 0; i <= 20; i++) {
+            numbers[i].set_all_false();
+        }
 
         //grab the textview for average_score, high_score, and current score text boxes
         TextView average_score_text = (TextView) findViewById(R.id.average_score);
         TextView high_score_text = (TextView) findViewById(R.id.high_score);
         TextView score_text = (TextView) findViewById(R.id.Score);
+
         //set average to the format of df
         average = Double.valueOf(df.format(average));
 
@@ -308,10 +303,8 @@ public class Solitaire extends Activity {
         average_score_text.setText(Double.toString(average));
         high_score_text.setText(Integer.toString(high_score));
 
-
         score_text.setText(Integer.toString(global.score));
         dart_default_visibility();
-
     }
 
     public void clear_button_pressed (View view) {
