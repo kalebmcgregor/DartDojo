@@ -52,4 +52,10 @@ public class Number extends Activity {
    }
 
     public void set_b() { this.number = "B"; }
+
+    public void set_all_false() {
+        this.dart_1_hit = false;
+        this.dart_2_hit = false;
+        this.dart_3_hit = false;
+        }
 }
