@@ -274,6 +274,7 @@ public class Solitaire extends Activity {
 
         //create decimal format which we will use later to trim the average to two decimal spots
         DecimalFormat df = new DecimalFormat("#.##");
+        TextView number = (TextView) findViewById(R.id.number);
 
         //add the score to the list of scores we already have
         score_list.add(global.score);
@@ -288,6 +289,13 @@ public class Solitaire extends Activity {
 
         //reset the global score
         global.score = 0;
+
+        current_number = 0;
+        dart_1_index = 0;
+        dart_2_index = 1;
+        dart_3_index = 2;
+        number.setText(numbers[current_number].get_number());
+        make_button_invisible(R.id.previous_number);
 
         //update the dart_percent text
         set_dart_percent_text();
@@ -394,7 +402,7 @@ public class Solitaire extends Activity {
                     n = n -1;
                     set_dart_percent_text();
                     n++;
-                    
+
                     //make next_button visible so it always populates
                     make_button_visible(R.id.next_number);
 
