@@ -13,6 +13,8 @@ import com.example.kaleb_000.dartdojo.Number;
 
 import org.w3c.dom.Text;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,6 +38,7 @@ public class Solitaire extends Activity {
     int dart_2_index = 1;
     int dart_3_index = 2;
     public static final String PREFS_NAME = "Solitaire";
+    boolean submitted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,19 +69,24 @@ public class Solitaire extends Activity {
         score_list.addAll(set);
         high_score = settings.getInt("high_score", high_score);
 
-        /*
-        String percent_list_0 = settings.getString("percent_list_0", "");
-        String percent_list_1 = settings.getString("percent_list_1", "");
 
-        StringTokenizer st1 = new StringTokenizer(percent_list_0, ",");
-        StringTokenizer st2 = new StringTokenizer(percent_list_1, ",");
+        String percent_list = settings.getString("percent_list", "");
+        int n = settings.getInt("n", 1);
 
-        while (st1.hasMoreTokens()) {
-            for (int i = 0; i < dart_percent_list.length; i++) {
-                dart_percent_list[0][i] = Integer.parseInt(st1.nextToken());
-                dart_percent_list[0][i] = Integer.parseInt(st2.nextToken());
+        if (n < 1) {
+            n = 1;
+        }
+
+        StringTokenizer str = new StringTokenizer(percent_list, ",");
+
+        while (str.hasMoreTokens()) {
+            for (int k = 0; k < dart_percent_list[0].length; k++) {
+                dart_percent_list[0][k] = Integer.parseInt(str.nextToken());
+                dart_percent_list[1][k] = n -1;
             }
-        } */
+        }
+
+        set_dart_percent_text();
     }
 
     protected void onPause(){
@@ -86,24 +94,11 @@ public class Solitaire extends Activity {
 
         Set<String> set = new HashSet<String>();
         set.addAll(score_list);
-        // We need an Editor object to make preference changes.
-        // All objects are from android.context.Context
+
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putStringSet("score_list", set);
         editor.putInt("high_score", high_score);
-
-        /*StringBuilder percent_list_0 = new StringBuilder();
-        StringBuilder percent_list_1 = new StringBuilder();
-        for (int i = 0; i < dart_percent_list.length; i++) {
-            percent_list_0.append(dart_percent_list[0][i]).append(",");
-            percent_list_1.append(dart_percent_list[1][i]).append(",");
-        }
-
-        editor.putString("percent_list_0", percent_list_0.toString());
-        editor.putString("percent_list_1", percent_list_1.toString()); */
-
-
 
         // Commit the edits!
         editor.commit();
@@ -223,9 +218,6 @@ public class Solitaire extends Activity {
 
         //Set new TextView textView with the same properties as the current textView
         TextView textView = (TextView) findViewById(R.id.Score);
-        TextView dart_1_percent = (TextView) findViewById(R.id.dart_1_percent);
-        TextView dart_2_percent = (TextView) findViewById(R.id.dart_2_percent);
-        TextView dart_3_percent = (TextView) findViewById(R.id.dart_3_percent);
 
         //Select the right button and do actions depending on which dart was selected
         switch(button_id){
@@ -298,18 +290,32 @@ public class Solitaire extends Activity {
 
         //update the dart_percent text
         set_dart_percent_text();
-
         //increment all of the n values by 1 and all of dart_hit to false
             for (int i = 0; i < dart_percent_list[0].length; i++) {
                 dart_hit[i] = false;
+                //if (submitted == true) {
+                    dart_percent_list[1][i]++;
+                //}
+            }
+
+        //submitted = true;
+
+        //update the dart_percent text
+        if (submitted == false) {
+            set_dart_percent_text();
+            for (int i = 0; i < dart_percent_list[0].length; i++) {
                 dart_percent_list[1][i]++;
             }
 
+        }
 
+        submitted = true;
 
         for (int i = 0; i <= 20; i++) {
             numbers[i].set_all_false();
         }
+
+
 
         //set all the dart position to their correct visibility
         dart_default_visibility();
@@ -327,6 +333,19 @@ public class Solitaire extends Activity {
         high_score_text.setText(Integer.toString(high_score));
 
         score_text.setText(Integer.toString(global.score));
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+
+        StringBuilder percent_list = new StringBuilder();
+        for (int i = 0; i < dart_percent_list[0].length; i++) {
+            percent_list.append(dart_percent_list[0][i]).append(",");
+        }
+
+        editor.putString("percent_list", percent_list.toString());
+        editor.putInt("n", dart_percent_list[1][0]);
+
+        editor.commit();
     }
 
     public void clear_button_pressed (View view) {
