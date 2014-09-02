@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.prefs.PreferenceChangeEvent;
 
 public class Solitaire extends Activity {
@@ -56,6 +57,7 @@ public class Solitaire extends Activity {
             }
         }
 
+
         //set the last place of the array to B for the bulls-eye
         numbers[20].set_b();
 
@@ -64,7 +66,47 @@ public class Solitaire extends Activity {
         score_list.addAll(set);
         high_score = settings.getInt("high_score", high_score);
 
-        //submit_button_pressed(new View(this));
+        /*
+        String percent_list_0 = settings.getString("percent_list_0", "");
+        String percent_list_1 = settings.getString("percent_list_1", "");
+
+        StringTokenizer st1 = new StringTokenizer(percent_list_0, ",");
+        StringTokenizer st2 = new StringTokenizer(percent_list_1, ",");
+
+        while (st1.hasMoreTokens()) {
+            for (int i = 0; i < dart_percent_list.length; i++) {
+                dart_percent_list[0][i] = Integer.parseInt(st1.nextToken());
+                dart_percent_list[0][i] = Integer.parseInt(st2.nextToken());
+            }
+        } */
+    }
+
+    protected void onPause(){
+        super.onPause();
+
+        Set<String> set = new HashSet<String>();
+        set.addAll(score_list);
+        // We need an Editor object to make preference changes.
+        // All objects are from android.context.Context
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putStringSet("score_list", set);
+        editor.putInt("high_score", high_score);
+
+        /*StringBuilder percent_list_0 = new StringBuilder();
+        StringBuilder percent_list_1 = new StringBuilder();
+        for (int i = 0; i < dart_percent_list.length; i++) {
+            percent_list_0.append(dart_percent_list[0][i]).append(",");
+            percent_list_1.append(dart_percent_list[1][i]).append(",");
+        }
+
+        editor.putString("percent_list_0", percent_list_0.toString());
+        editor.putString("percent_list_1", percent_list_1.toString()); */
+
+
+
+        // Commit the edits!
+        editor.commit();
     }
 
     public double get_dart_average (int i) {
@@ -193,7 +235,6 @@ public class Solitaire extends Activity {
                 numbers[current_number].set_dart_1(true);
                 dart_percent_list[0][dart_1_index]++;
                 dart_hit[dart_1_index] = true;
-                dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
                 break;
             case R.id.button2:
                 textView.setText(global.dartthrow(1));
@@ -201,7 +242,6 @@ public class Solitaire extends Activity {
                 numbers[current_number].set_dart_2(true);
                 dart_percent_list[0][dart_2_index]++;
                 dart_hit[dart_2_index] = true;
-                dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
                 break;
             case R.id.button3:
                 textView.setText(global.dartthrow(1));
@@ -209,7 +249,6 @@ public class Solitaire extends Activity {
                 numbers[current_number].set_dart_3(true);
                 dart_percent_list[0][dart_3_index]++;
                 dart_hit[dart_3_index] = true;
-                dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
                 break;
             case R.id.button4:
                 textView.setText(global.dartthrow(-1));
@@ -217,7 +256,6 @@ public class Solitaire extends Activity {
                 numbers[current_number].set_dart_1(false);
                 dart_percent_list[0][dart_1_index]--;
                 dart_hit[dart_1_index] = false;
-                dart_1_percent.setText(Double.toString(get_dart_average(dart_1_index)));
                 break;
             case R.id.button5:
                 textView.setText(global.dartthrow(-1));
@@ -225,7 +263,6 @@ public class Solitaire extends Activity {
                 numbers[current_number].set_dart_2(false);
                 dart_percent_list[0][dart_2_index]--;
                 dart_hit[dart_2_index] = false;
-                dart_2_percent.setText(Double.toString(get_dart_average(dart_2_index)));
                 break;
             case R.id.button6:
                 textView.setText(global.dartthrow(-1));
@@ -233,27 +270,12 @@ public class Solitaire extends Activity {
                 numbers[current_number].set_dart_3(false);
                 dart_percent_list[0][dart_3_index]--;
                 dart_hit[dart_3_index] = false;
-                dart_3_percent.setText(Double.toString(get_dart_average(dart_3_index)));
                 break;
 
         }
     }
 
-    protected void onPause(){
-        super.onPause();
 
-        Set<String> set = new HashSet<String>();
-        set.addAll(score_list);
-        // We need an Editor object to make preference changes.
-        // All objects are from android.context.Context
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putStringSet("score_list", set);
-        editor.putInt("high_score", high_score);
-
-        // Commit the edits!
-        editor.commit();
-    }
 
     public void submit_button_pressed (View view) {
 
@@ -274,14 +296,16 @@ public class Solitaire extends Activity {
         //reset the global score
         global.score = 0;
 
+        //update the dart_percent text
+        set_dart_percent_text();
+
         //increment all of the n values by 1 and all of dart_hit to false
             for (int i = 0; i < dart_percent_list[0].length; i++) {
                 dart_hit[i] = false;
                 dart_percent_list[1][i]++;
             }
 
-        //update the dart_percent text
-        set_dart_percent_text();
+
 
         for (int i = 0; i <= 20; i++) {
             numbers[i].set_all_false();
