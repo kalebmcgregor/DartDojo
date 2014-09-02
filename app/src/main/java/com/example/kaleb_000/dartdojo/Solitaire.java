@@ -296,6 +296,7 @@ public class Solitaire extends Activity {
         dart_3_index = 2;
         number.setText(numbers[current_number].get_number());
         make_button_invisible(R.id.previous_number);
+        make_button_visible(R.id.next_number);
 
         //update the dart_percent text
         set_dart_percent_text();
