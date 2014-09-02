@@ -39,6 +39,7 @@ public class Solitaire extends Activity {
     int dart_3_index = 2;
     public static final String PREFS_NAME = "Solitaire";
     boolean submitted = false;
+    int n = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class Solitaire extends Activity {
         for (int j=0; j < 2; j++) {
             for (int i = 0; i < dart_percent_list[0].length; i++) {
                 dart_percent_list[0][i] = 0;
-                dart_percent_list[1][i] = 1;
+                n = 1;
                 dart_hit[i] = false;
             }
         }
@@ -66,24 +67,26 @@ public class Solitaire extends Activity {
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         Set<String> set = settings.getStringSet("score_list", new HashSet<String>());
+        String percent_list = settings.getString("percent_list", "");
+
         score_list.addAll(set);
         high_score = settings.getInt("high_score", high_score);
 
+        n = settings.getInt("n", 1);
 
-        String percent_list = settings.getString("percent_list", "");
-        int n = settings.getInt("n", 1);
 
-        if (n < 1) {
-            n = 1;
-        }
 
         StringTokenizer str = new StringTokenizer(percent_list, ",");
 
         while (str.hasMoreTokens()) {
             for (int k = 0; k < dart_percent_list[0].length; k++) {
                 dart_percent_list[0][k] = Integer.parseInt(str.nextToken());
-                dart_percent_list[1][k] = n -1;
             }
+            n = n -1;
+        }
+
+        if (n < 1) {
+            n = 1;
         }
 
         set_dart_percent_text();
@@ -106,13 +109,11 @@ public class Solitaire extends Activity {
 
     public double get_dart_average (int i) {
         DecimalFormat df = new DecimalFormat("#.#");
-        if (dart_percent_list[1][i] <= 0) {
+        if (n <= 0) {
             return 0;
             }
         double sum = dart_percent_list[0][i];
-        double n = dart_percent_list[1][i];
-        //double average = ((dart_percent_list[0][i] / dart_percent_list[1][i]) * 100);
-        double average = sum/n * 100;
+        double average = sum/ (double) n * 100;
         String format = df.format(average);
         average = Double.parseDouble(format);
         return average;
@@ -290,23 +291,18 @@ public class Solitaire extends Activity {
 
         //update the dart_percent text
         set_dart_percent_text();
+
         //increment all of the n values by 1 and all of dart_hit to false
             for (int i = 0; i < dart_percent_list[0].length; i++) {
                 dart_hit[i] = false;
-                //if (submitted == true) {
-                    dart_percent_list[1][i]++;
-                //}
             }
 
-        //submitted = true;
+        n++;
 
         //update the dart_percent text
         if (submitted == false) {
             set_dart_percent_text();
-            for (int i = 0; i < dart_percent_list[0].length; i++) {
-                dart_percent_list[1][i]++;
-            }
-
+            n++;
         }
 
         submitted = true;
@@ -343,7 +339,7 @@ public class Solitaire extends Activity {
         }
 
         editor.putString("percent_list", percent_list.toString());
-        editor.putInt("n", dart_percent_list[1][0]);
+        editor.putInt("n", n);
 
         editor.commit();
     }
@@ -358,7 +354,7 @@ public class Solitaire extends Activity {
         for (int j=0; j < 2; j++) {
             for (int i = 0; i < dart_percent_list[0].length; i++) {
                 dart_percent_list[0][i] = 0;
-                dart_percent_list[1][i] = 1;
+                n = 1;
                 dart_hit[i] = false;
             }
         }
@@ -394,8 +390,11 @@ public class Solitaire extends Activity {
                     dart_1_index = dart_1_index - 3;
                     dart_2_index = dart_2_index - 3;
                     dart_3_index = dart_3_index - 3;
-                    set_dart_percent_text();
 
+                    n = n -1;
+                    set_dart_percent_text();
+                    n++;
+                    
                     //make next_button visible so it always populates
                     make_button_visible(R.id.next_number);
 
@@ -418,7 +417,10 @@ public class Solitaire extends Activity {
                     dart_1_index = dart_1_index + 3;
                     dart_2_index = dart_2_index + 3;
                     dart_3_index = dart_3_index + 3;
+
+                    n = n -1;
                     set_dart_percent_text();
+                    n++;
 
                     if (current_number == 20) {
                         make_button_invisible(R.id.next_number);
